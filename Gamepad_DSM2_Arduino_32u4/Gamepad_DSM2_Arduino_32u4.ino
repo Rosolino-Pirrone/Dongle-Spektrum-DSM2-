@@ -29,7 +29,7 @@ Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_GAMEPAD,
                    2, 0,                  // Button Count, Hat Switch Count
                    true, true, false,     // X and Y, but no Z Axis
                    true, true, false,   // No Rx, Ry, or Rz
-                   false, false,          // No rudder or throttle
+                   false, true,          // No rudder or throttle
                    false, false, false);  // No accelerator, brake, or steering
 
 void setup() {
@@ -40,6 +40,7 @@ void setup() {
   Joystick.setYAxisRange(-1023, 1023);
   Joystick.setRxAxisRange(-1023, 1023);
   Joystick.setRyAxisRange(-1023, 1023);
+  Joystick.setThrottleRange(-1023, 1023);
   Wire.begin();
 }
 
@@ -137,7 +138,9 @@ void loop() {
   int c3 = map(constrain(ch3.toInt(), 0, 2048), 0, 2048, -1023, 1023);
   int c4 = map(constrain(ch4.toInt(), 0, 2048), 0, 2048, -1023, 1023);
   int c5 = map(constrain(ch5.toInt(), 0, 2048), 0, 2048, -1023, 1023);
+  int c6 = map(constrain(ch6.toInt(), 0, 2048), 0, 2048, -1023, 1023);
   int c7 = map(constrain(ch7.toInt(), 0, 2048), 0, 2048, -1023, 1023);
+  
   if (c5 > 15) c5 = 0;
   else c5 = 1;
   if (c7 > 15) c7 = 0;
@@ -149,7 +152,9 @@ void loop() {
   Joystick.setRxAxis(c3);
   Joystick.setRyAxis(c4);
   Joystick.setButton(0, c5);
+  Joystick.setThrottle(c6);
   Joystick.setButton(1, c7);
+  
   stringa = "";
 
   //delay(10);
