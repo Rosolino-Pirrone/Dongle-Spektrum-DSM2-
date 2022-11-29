@@ -26,7 +26,7 @@ char dati[24];
 char dati2[24];
 String ch, ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8;
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_GAMEPAD,
-                   1, 0,                  // Button Count, Hat Switch Count
+                   2, 0,                  // Button Count, Hat Switch Count
                    true, true, false,     // X and Y, but no Z Axis
                    true, true, false,   // No Rx, Ry, or Rz
                    false, false,          // No rudder or throttle
@@ -136,12 +136,21 @@ void loop() {
   int c2 = map(constrain(ch2.toInt(), 0, 2048), 0, 2048, -1023, 1023);
   int c3 = map(constrain(ch3.toInt(), 0, 2048), 0, 2048, -1023, 1023);
   int c4 = map(constrain(ch4.toInt(), 0, 2048), 0, 2048, -1023, 1023);
+  int c5 = map(constrain(ch5.toInt(), 0, 2048), 0, 2048, -1023, 1023);
+  int c7 = map(constrain(ch7.toInt(), 0, 2048), 0, 2048, -1023, 1023);
+  if (c5 > 15) c5 = 0;
+  else c5 = 1;
+  if (c7 > 15) c7 = 0;
+  else c7 = 1;
+
   // Read pin values
   Joystick.setXAxis(c1);
   Joystick.setYAxis(c2);
   Joystick.setRxAxis(c3);
   Joystick.setRyAxis(c4);
+  Joystick.setButton(0, c5);
+  Joystick.setButton(1, c7);
   stringa = "";
 
-//delay(10);
+  //delay(10);
 }
